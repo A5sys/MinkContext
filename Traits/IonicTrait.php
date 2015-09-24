@@ -8,7 +8,7 @@ use Behat\Mink\Exception\ElementNotFoundException;
  *
  * @author Thomas BEAUJEAN
  */
-class IonicTrait
+trait IonicTrait
 {
     /**
      * Wait for the page to be loaded by ionic

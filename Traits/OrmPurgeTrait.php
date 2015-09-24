@@ -10,12 +10,13 @@ use Doctrine\Common\DataFixtures\Loader;
  *
  * @author Thomas BEAUJEAN
  */
-class OrmPurgeTrait
+trait OrmPurgeTrait
 {
     /**
      * Purge the complete database
      *
      * @param string $environment
+     * @return Kernel $kernel
      */
     public static function purgeDatabase($environment = 'test')
     {
@@ -30,5 +31,7 @@ class OrmPurgeTrait
         $purger = new ORMPurger();
         $executor = new ORMExecutor($em, $purger);
         $executor->execute($loader->getFixtures());
+
+        return $kernel;
     }
 }

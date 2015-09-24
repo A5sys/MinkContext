@@ -9,7 +9,7 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class SymfonyContext extends MinkContext
 {
-    use A5sys\MinkContext\Traits\MinkTrait;
+    use \A5sys\MinkContext\Traits\MinkTrait;
 
     protected $em = null;
     protected $kernel = null;

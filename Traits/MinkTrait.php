@@ -8,10 +8,11 @@ use Behat\Mink\Exception\ElementNotFoundException;
  *
  * @author Thomas BEAUJEAN
  */
-class MinkTrait
+trait MinkTrait
 {
     //the time to wait for an ajax request
     protected $ajaxTimeout = 10000;
+    protected $timeout = 3000;
 
     /**
      * Clicks link with specified id|title|alt|text.
