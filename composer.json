@@ -1,0 +1,6 @@
+{
+    "name": "a5sys/mink-context",
+    "autoload": {
+        "psr-4": { "A5sys\\MinkContext\\": "" }
+    }
+}
