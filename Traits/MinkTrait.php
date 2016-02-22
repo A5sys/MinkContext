@@ -201,4 +201,17 @@ trait MinkTrait
     {
         return $this->ajaxTimeout;
     }
+
+    /**
+     * @param string $xpath
+     * @return DomElement
+     */
+    protected function getElementByXpath($xpath)
+    {
+        $session = $this->getSession();
+        $page = $session->getPage();
+
+        //select with xpath
+        return $page->find('xpath', $xpath);
+    }
 }
