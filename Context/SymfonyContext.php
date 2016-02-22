@@ -30,6 +30,18 @@ class SymfonyContext extends MinkContext
     }
 
     /**
+     * Get a service
+     *
+     * @param string $serviceName The name of the service to retrieve
+     *
+     * @return Service
+     */
+    public function getService($serviceName)
+    {
+        return $this->container->get($serviceName);
+    }
+
+    /**
      *
      * @return EntityManager
      */
