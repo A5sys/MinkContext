@@ -21,7 +21,7 @@ trait MinkTrait
      *
      * @When /^(?:|I )click "(?P<link>(?:[^"]|\\")*)"$/
      */
-    public function clickLink($link)
+    public function iClickALink($link)
     {
         $locator = $this->fixStepArgument($link);
         $page = $this->getSession()->getPage();
