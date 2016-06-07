@@ -32,7 +32,7 @@ trait MinkTrait
             throw $this->elementNotFound('link', 'id|title|alt|text', $locator);
         }
 
-        $link->click();
+        $linkElement->click();
     }
 
     /**
