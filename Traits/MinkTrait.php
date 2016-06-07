@@ -94,7 +94,10 @@ trait MinkTrait
         //select with css
         $docSelector = "document.querySelectorAll('".$element."')";
         $query = $docSelector.".length > 0 && ".$docSelector."[0].offsetWidth !== 0";
-        $session->wait($this->timeout, $query);
+
+        if (!$session->wait($this->timeout, $query)) {
+            throw $this->elementNotFound('element', 'css', $element);
+        }
 
         $this->getElementByCss($element);
     }
@@ -116,7 +119,6 @@ trait MinkTrait
         $docSelector = "document.querySelectorAll('".$element."')";
         $query = $docSelector.".length === 0";
         $session->wait($this->timeout, $query);
-
         $el = $page->find('css', $element);
 
         if (null !== $el) {
