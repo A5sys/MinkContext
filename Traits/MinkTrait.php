@@ -3,6 +3,7 @@
 namespace A5sys\MinkContext\Traits;
 
 use Behat\Mink\Exception\ElementNotFoundException;
+use A5sys\MinkContext\Exception\ElementNotVisibleException;
 
 /**
  *
@@ -94,9 +95,14 @@ trait MinkTrait
         //select with css
         $docSelector = "document.querySelectorAll('".$element."')";
         $query = $docSelector.".length > 0 && ".$docSelector."[0].offsetWidth !== 0";
-        $session->wait($this->timeout, $query);
 
         $this->getElementByCss($element);
+
+        if (!$session->wait($this->timeout, $query)) {
+            throw $this->elementNotVisible('element', 'css', $element);
+        }
+
+
     }
 
     /**
@@ -116,7 +122,6 @@ trait MinkTrait
         $docSelector = "document.querySelectorAll('".$element."')";
         $query = $docSelector.".length === 0";
         $session->wait($this->timeout, $query);
-
         $el = $page->find('css', $element);
 
         if (null !== $el) {
@@ -181,6 +186,23 @@ trait MinkTrait
     protected function elementNotFound($type, $selector = null, $locator = null)
     {
         return new ElementNotFoundException($this->getSession(), $type, $selector, $locator);
+    }
+
+    /**
+     * Builds an ElementNotVisibleException
+     *
+     * This is an helper to build the ElementNotVisibleException without
+     * needing to use the deprecated getSession accessor in child classes.
+     *
+     * @param string      $type
+     * @param string|null $selector
+     * @param string|null $locator
+     *
+     * @return ElementNotVisibleException
+     */
+    protected function elementNotVisible($type, $selector = null, $locator = null)
+    {
+        return new ElementNotVisibleException($this->getSession(), $type, $selector, $locator);
     }
 
     /**
