@@ -4,6 +4,7 @@ namespace A5sys\MinkContext\Traits;
 
 use Behat\Mink\Exception\ElementNotFoundException;
 use A5sys\MinkContext\Exception\ElementNotVisibleException;
+use Behat\Mink\Exception\ExpectationException;
 
 /**
  *
@@ -145,10 +146,16 @@ trait MinkTrait
      * I wait for all ajax done
      *
      * @When /^(?:|I )wait for ajax to be done$/
+     * @throws \Behat\Mink\Exception\ExpectationException
      */
     public function iWaitForAjaxDone()
     {
-        $this->getSession()->wait($this->ajaxTimeout, '(0 === jQuery.active)');
+        if ($this->getSession()->wait($this->ajaxTimeout, '(0 === jQuery.active)') === false) {
+            throw new ExpectationException(
+                sprintf('There is still an ajax call active after %d milliseconds.', $this->ajaxTimeout),
+                $this->getSession()
+            );
+        };
     }
 
     /**
